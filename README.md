@@ -1,1 +1,112 @@
 # Boelslund.github.io
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Robin Clean</title>
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Basic Mobile Web App Meta -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+</head>
+<body class="bg-gray-900 text-gray-100 font-sans antialiased select-none">
+
+  <div id="app" class="max-w-md mx-auto min-h-screen flex flex-col p-4 pb-12">
+    <!-- Header -->
+    <header class="mb-6 pt-4">
+      <span class="text-xs font-semibold tracking-widest text-emerald-400 uppercase">Current Rotation</span>
+      <h1 class="text-3xl font-extrabold tracking-tight text-white">{{ activeRoom.name }}</h1>
+      <p class="text-xs text-gray-400 mt-1">Automatically rotates next Monday at midnight</p>
+    </header>
+
+    <!-- Task List -->
+    <main class="flex-1 space-y-3">
+      <div 
+        v-for="task in orderedTasks" 
+        :key="task.id"
+        @click="toggleTask(task.id)"
+        :class="['flex items-center justify-between p-4 rounded-xl border transition-all duration-200 cursor-pointer', 
+                 task.done ? 'bg-gray-800/40 border-gray-800 text-gray-500 line-through' : 'bg-gray-800 border-gray-700/60 shadow-sm active:scale-[0.98]']"
+      >
+        <span class="font-medium text-sm pr-4">{{ task.text }}</span>
+        <div :class="['w-5 h-5 rounded-md border flex items-center justify-center shrink-0', 
+                      task.done ? 'bg-emerald-500 border-emerald-500 text-gray-900' : 'border-gray-500']">
+          <svg v-if="task.done" class="w-3.5 h-3.5 stroke-2 stroke-current" fill="none" viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script>
+    const { createApp, createAppState } = Vue;
+
+    // Define your fixed configuration data
+    const ROOMS = [
+      { id: 'kitchen', name: 'Kitchen', tasks: ['Wipe counters & sink', 'Clean stovetop', 'Mop floor', 'Wipe appliance fronts'] },
+      { id: 'living', name: 'Living Room', tasks: ['Dust surfaces', 'Vacuum rug', 'Tidy clutter', 'Wipe baseboards', 'Clean windowsills'] },
+      { id: 'bathroom', name: 'Bathroom', tasks: ['Scrub toilet', 'Clean mirror & sink', 'Wipe shower/tub', 'Empty bin & wash floor'] }
+    ];
+
+    // Pick a Monday at Midnight in the past as your system anchor
+    const EPOCH_DATE = new Date('2026-01-05T00:00:00'); 
+
+    createApp({
+      data() {
+        return {
+          rooms: ROOMS,
+          checkedStates: JSON.parse(localStorage.getItem('robin_completed_tasks') || '{}')
+        }
+      },
+      computed: {
+        currentWeekOffset() {
+          const now = new Date();
+          const msDiff = now - EPOCH_DATE;
+          return Math.floor(msDiff / (1000 * 60 * 60 * 24 * 7));
+        },
+        activeRoomIndex() {
+          return this.currentWeekOffset % this.rooms.length;
+        },
+        activeRoom() {
+          return this.rooms[this.activeRoomIndex];
+        },
+        // Calculates how many times this specific room has been cycled through
+        roomCycleCount() {
+          return Math.floor(this.currentWeekOffset / this.rooms.length);
+        },
+        orderedTasks() {
+          const room = this.activeRoom;
+          
+          // Map raw tasks to state-aware items
+          const items = room.tasks.map((taskText, idx) => ({
+            id: `${room.id}_${idx}`,
+            text: taskText,
+            originalIndex: idx,
+            done: !!this.checkedStates[`${room.id}_${idx}_w${this.currentWeekOffset}`]
+          }));
+
+          // Shift the base list forward according to how many historical loops occurred
+          // (e.g., if cycle count is 1, and room has 4 tasks, task 3 & 4 bubble up)
+          const shiftAmount = (this.roomCycleCount * 2) % items.length; // assumes doing 2 tasks per visit
+          const rotated = [...items.slice(shiftAmount), ...items.slice(0, shiftAmount)];
+
+          // Final dynamic sort: checked items drop immediately to the bottom
+          return rotated.sort((a, b) => a.done - b.done);
+        }
+      },
+      methods: {
+        toggleTask(id) {
+          const key = `${id}_w${this.currentWeekOffset}`;
+          if (this.checkedStates[key]) {
+            delete this.checkedStates[key];
+          } else {
+            this.checkedStates[key] = true;
+          }
+          localStorage.setItem('robin_completed_tasks', JSON.stringify(this.checkedStates));
+        }
+      }
+    }).mount('#app');
+  </script>
+</body>
+</html>
