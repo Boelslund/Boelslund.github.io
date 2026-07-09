@@ -43,9 +43,109 @@
 
     // Define your fixed configuration data
     const ROOMS = [
-      { id: 'kitchen', name: 'Kitchen', tasks: ['Wipe counters & sink', 'Clean stovetop', 'Mop floor', 'Wipe appliance fronts'] },
-      { id: 'living', name: 'Living Room', tasks: ['Dust surfaces', 'Vacuum rug', 'Tidy clutter', 'Wipe baseboards', 'Clean windowsills'] },
-      { id: 'bathroom', name: 'Bathroom', tasks: ['Scrub toilet', 'Clean mirror & sink', 'Wipe shower/tub', 'Empty bin & wash floor'] }
+      { 
+        id: 'kitchen', 
+        name: 'Kitchen & dining', 
+        tasks: [
+          'Stovetop',
+          'Oven',
+          'Microwave',
+          'Dishwasher',
+          'Fridge',
+          'Surfaces',
+          'Cupboards',
+          'Drawers',
+          'Pantry',
+          'Windows',
+          'Electrics',
+          'Walls & baseboards',
+          'Mop floor',
+          'Chairs',
+          "Full wipe down",
+          "Dust"
+        ] 
+      },
+      {
+        id: 'bathroom', 
+        name: 'Bathroom', 
+        tasks: [ 
+          'Mirror & sink',
+          'Toilet',
+          'Empty bin',
+          'Shower curtain',
+          'Cabinets',
+          'Electrics',
+          'Windows',
+          'Wipe shower',
+          "Dust",
+          "Walls & baseboards",
+          "Full wipe down",
+          'Wash floor'
+        ] 
+      },
+      {
+        id: 'bedroom',
+        name: 'Bedroom',
+        tasks: [
+          'Sweep under bed',
+          'Clean & organise closet',
+          'Flip mattress',
+          'Windows',
+          'Electrics',
+          "Dust",
+          "Walls & baseboards",
+          "Full wipe down",
+          'Mop floor'
+        ]
+      },
+      { 
+        id: 'living', 
+        name: 'Living Room', 
+        tasks: [
+          'Vacuum sofa',
+          'Vacuum areas robot can\'t get to',
+          "Windows",
+          "Electrics",
+          "TV",
+          "Walls & baseboards",
+          "Full wipe down",
+          "Dust"
+        ]
+      },
+      {
+        id: "entry",
+        name: "Entry",
+        tasks: [
+          "Windows & mirrors",
+          "Doormat",
+          "Boot trays",
+          "Organise shoes",
+          "Electrics",
+          "Walls & baseboards",
+          "Full wipe down",
+          "Dust"
+        ]
+      },
+      {
+        id: "landry",
+        name: "Laundry",
+        tasks: [
+          "Washing machine",
+          "Dryer"
+        ]
+      },
+      {
+        id: "office",
+        name: "Office",
+        tasks: [
+          "Windows",
+          "Full wipe down",
+          "Walls & baseboards",
+          "Electrics",
+          "Work station",
+          "Dust"
+        ]
+      }
     ];
 
     // Pick a Monday at Midnight in the past as your system anchor
