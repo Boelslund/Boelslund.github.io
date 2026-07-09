@@ -39,133 +39,85 @@
   </div>
 
   <script>
-    const { createApp, createAppState } = Vue;
+    const { createApp } = Vue;
 
-    // Define your fixed configuration data
+    // Fixed configuration data populated with your full custom list
     const ROOMS = [
       { 
         id: 'kitchen', 
         name: 'Kitchen & dining', 
         tasks: [
-          'Stovetop',
-          'Oven',
-          'Microwave',
-          'Dishwasher',
-          'Fridge',
-          'Surfaces',
-          'Cupboards',
-          'Drawers',
-          'Pantry',
-          'Windows',
-          'Electrics',
-          'Walls & baseboards',
-          'Mop floor',
-          'Chairs',
-          "Full wipe down",
-          "Dust"
+          'Stovetop', 'Oven', 'Microwave', 'Dishwasher', 'Fridge', 'Surfaces', 
+          'Cupboards', 'Drawers', 'Pantry', 'Windows', 'Electrics', 
+          'Walls & baseboards', 'Mop floor', 'Chairs', 'Full wipe down', 'Dust'
         ] 
       },
       {
         id: 'bathroom', 
         name: 'Bathroom', 
         tasks: [ 
-          'Mirror & sink',
-          'Toilet',
-          'Empty bin',
-          'Shower curtain',
-          'Cabinets',
-          'Electrics',
-          'Windows',
-          'Wipe shower',
-          "Dust",
-          "Walls & baseboards",
-          "Full wipe down",
-          'Wash floor'
+          'Mirror & sink', 'Toilet', 'Empty bin', 'Shower curtain', 'Cabinets', 
+          'Electrics', 'Windows', 'Wipe shower', 'Dust', 'Walls & baseboards', 
+          'Full wipe down', 'Wash floor'
         ] 
       },
       {
         id: 'bedroom',
         name: 'Bedroom',
         tasks: [
-          'Sweep under bed',
-          'Clean & organise closet',
-          'Flip mattress',
-          'Windows',
-          'Electrics',
-          "Dust",
-          "Walls & baseboards",
-          "Full wipe down",
-          'Mop floor'
+          'Sweep under bed', 'Clean & organise closet', 'Flip mattress', 'Windows', 
+          'Electrics', 'Dust', 'Walls & baseboards', 'Full wipe down', 'Mop floor'
         ]
       },
       { 
         id: 'living', 
         name: 'Living Room', 
         tasks: [
-          'Vacuum sofa',
-          'Vacuum areas robot can\'t get to',
-          "Windows",
-          "Electrics",
-          "TV",
-          "Walls & baseboards",
-          "Full wipe down",
-          "Dust"
+          'Vacuum sofa', "Vacuum areas robot can't get to", 'Windows', 'Electrics', 
+          'TV', 'Walls & baseboards', 'Full wipe down', 'Dust'
         ]
       },
       {
-        id: "entry",
-        name: "Entry",
+        id: 'entry',
+        name: 'Entry',
         tasks: [
-          "Windows & mirrors",
-          "Doormat",
-          "Boot trays",
-          "Organise shoes",
-          "Electrics",
-          "Walls & baseboards",
-          "Full wipe down",
-          "Dust"
+          'Windows & mirrors', 'Doormat', 'Boot trays', 'Organise shoes', 
+          'Electrics', 'Walls & baseboards', 'Full wipe down', 'Dust'
         ]
       },
       {
-        id: "landry",
-        name: "Laundry",
+        id: 'laundry',
+        name: 'Laundry',
         tasks: [
-          "Washing machine outside",
-          "Washing machine auto-dose unit",
-          "Washing machine filter",
-          "Washing machine rubber seal",
-          "Dryer outside"
+          'Washing machine outside', 'Washing machine auto-dose unit', 
+          'Washing machine filter', 'Washing machine rubber seal', 'Dryer outside'
         ]
       },
       {
-        id: "office",
-        name: "Office",
+        id: 'office',
+        name: 'Office',
         tasks: [
-          "Windows",
-          "Full wipe down",
-          "Walls & baseboards",
-          "Electrics",
-          "Work station",
-          "Dust"
+          'Windows', 'Full wipe down', 'Walls & baseboards', 'Electrics', 
+          'Work station', 'Dust'
         ]
       }
     ];
 
-    // Pick a Monday at Midnight in the past as your system anchor
     const EPOCH_DATE = new Date('2026-01-05T00:00:00'); 
 
     createApp({
       data() {
         return {
           rooms: ROOMS,
-          checkedStates: JSON.parse(localStorage.getItem('robin_completed_tasks') || '{}')
+          roomPointers: JSON.parse(localStorage.getItem('robin_room_pointers') || '{}'),
+          checkedStates: JSON.parse(localStorage.getItem('robin_completed_tasks') || '{}'),
+          lastProcessedWeek: localStorage.getItem('robin_last_week')
         }
       },
       computed: {
         currentWeekOffset() {
           const now = new Date();
-          const msDiff = now - EPOCH_DATE;
-          return Math.floor(msDiff / (1000 * 60 * 60 * 24 * 7));
+          return Math.floor((now - EPOCH_DATE) / (1000 * 60 * 60 * 24 * 7));
         },
         activeRoomIndex() {
           return this.currentWeekOffset % this.rooms.length;
@@ -173,14 +125,10 @@
         activeRoom() {
           return this.rooms[this.activeRoomIndex];
         },
-        // Calculates how many times this specific room has been cycled through
-        roomCycleCount() {
-          return Math.floor(this.currentWeekOffset / this.rooms.length);
-        },
         orderedTasks() {
           const room = this.activeRoom;
+          const currentPointer = this.roomPointers[room.id] || 0;
           
-          // Map raw tasks to state-aware items
           const items = room.tasks.map((taskText, idx) => ({
             id: `${room.id}_${idx}`,
             text: taskText,
@@ -188,16 +136,42 @@
             done: !!this.checkedStates[`${room.id}_${idx}_w${this.currentWeekOffset}`]
           }));
 
-          // Shift the base list forward according to how many historical loops occurred
-          // (e.g., if cycle count is 1, and room has 4 tasks, task 3 & 4 bubble up)
-          const shiftAmount = (this.roomCycleCount * 2) % items.length; // assumes doing 2 tasks per visit
-          const rotated = [...items.slice(shiftAmount), ...items.slice(0, shiftAmount)];
+          // Rotate using the dynamic pointer stored from actual previous usage
+          const shifted = [...items.slice(currentPointer), ...items.slice(0, currentPointer)];
 
-          // Final dynamic sort: checked items drop immediately to the bottom
-          return rotated.sort((a, b) => a.done - b.done);
+          return shifted.sort((a, b) => a.done - b.done);
         }
       },
+      created() {
+        this.handleRoomTransition();
+      },
       methods: {
+        handleRoomTransition() {
+          const currentWeek = this.currentWeekOffset;
+          
+          if (this.lastProcessedWeek && parseInt(this.lastProcessedWeek) !== currentWeek) {
+            const previousWeek = parseInt(this.lastProcessedWeek);
+            const prevRoomIndex = previousWeek % this.rooms.length;
+            const prevRoom = this.rooms[prevRoomIndex];
+            
+            let completedCount = 0;
+            prevRoom.tasks.forEach((_, idx) => {
+              if (this.checkedStates[`${prevRoom.id}_${idx}_w${previousWeek}`]) {
+                completedCount++;
+              }
+            });
+
+            if (completedCount > 0) {
+              const currentPointer = this.roomPointers[prevRoom.id] || 0;
+              const newPointer = (currentPointer + completedCount) % prevRoom.tasks.length;
+              this.roomPointers[prevRoom.id] = newPointer;
+              localStorage.setItem('robin_room_pointers', JSON.stringify(this.roomPointers));
+            }
+          }
+          
+          this.lastProcessedWeek = currentWeek.toString();
+          localStorage.setItem('robin_last_week', this.lastProcessedWeek);
+        },
         toggleTask(id) {
           const key = `${id}_w${this.currentWeekOffset}`;
           if (this.checkedStates[key]) {
