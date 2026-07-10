@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>Robin Clean</title>
+  <title>Round Robin Clean</title>
   <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
   <script src="https://cdn.tailwindcss.com"></script>
   <!-- Basic Mobile Web App Meta -->
@@ -43,65 +43,131 @@
 
     // Fixed configuration data populated with your full custom list
     const ROOMS = [
-      { 
-        id: 'kitchen', 
-        name: 'Kitchen & dining', 
-        tasks: [
-          'Stovetop', 'Oven', 'Microwave', 'Dishwasher', 'Fridge', 'Surfaces', 
-          'Cupboards', 'Drawers', 'Pantry', 'Windows', 'Electrics', 
-          'Walls & baseboards', 'Mop floor', 'Chairs', 'Full wipe down', 'Dust'
-        ] 
-      },
-      {
-        id: 'bathroom', 
-        name: 'Bathroom', 
-        tasks: [ 
-          'Mirror & sink', 'Toilet', 'Empty bin', 'Shower curtain', 'Cabinets', 
-          'Electrics', 'Windows', 'Wipe shower', 'Dust', 'Walls & baseboards', 
-          'Full wipe down', 'Wash floor'
-        ] 
-      },
-      {
-        id: 'bedroom',
-        name: 'Bedroom',
-        tasks: [
-          'Sweep under bed', 'Clean & organise closet', 'Flip mattress', 'Windows', 
-          'Electrics', 'Dust', 'Walls & baseboards', 'Full wipe down', 'Mop floor'
-        ]
-      },
-      { 
-        id: 'living', 
-        name: 'Living Room', 
-        tasks: [
-          'Vacuum sofa', "Vacuum areas robot can't get to", 'Windows', 'Electrics', 
-          'TV', 'Walls & baseboards', 'Full wipe down', 'Dust'
-        ]
-      },
-      {
-        id: 'entry',
-        name: 'Entry',
-        tasks: [
-          'Windows & mirrors', 'Doormat', 'Boot trays', 'Organise shoes', 
-          'Electrics', 'Walls & baseboards', 'Full wipe down', 'Dust'
-        ]
-      },
-      {
-        id: 'laundry',
-        name: 'Laundry',
-        tasks: [
-          'Washing machine outside', 'Washing machine auto-dose unit', 
-          'Washing machine filter', 'Washing machine rubber seal', 'Dryer outside'
-        ]
-      },
-      {
-        id: 'office',
-        name: 'Office',
-        tasks: [
-          'Windows', 'Full wipe down', 'Walls & baseboards', 'Electrics', 
-          'Work station', 'Dust'
-        ]
-      }
-    ];
+  {
+    id: 'kitchen', 
+    name: 'Kitchen & dining', 
+    tasks: [
+      'Stovetop', 
+      'Oven exterior & knobs', 
+      'Microwave interior & exterior', 
+      'Dishwasher door edges & filter', 
+      'Wipe fridge shelves & door seals', 
+      'Purge expired pantry items',
+      'Wipe cabinet fronts & handles', 
+      'Drawers', 
+      'Windows & sills', 
+      'Toaster crumb tray & small electrics', 
+      'Walls & baseboards spot-clean', 
+      'Mop floor', 
+      'Chairs & table legs wipe down', 
+      'Wipe light switches & outlets', 
+      'Dust high ledges'
+    ] 
+  },
+  {
+    id: 'bathroom', 
+    name: 'Bathroom', 
+    tasks: [ 
+      'Mirror & faucet polishing',
+      'Toilet bowl',
+      'Toilet seat',
+      'Toilet base', 
+      'Empty & sanitise bin', 
+      'Wash shower curtains', 
+      'Purge expired products', 
+      'Wipe cabinet fronts & handles',
+      'Wipe cabinet shelves', 
+      'Wipe bathroom sink',
+      'Hair catch',
+      'Windows & sills', 
+      'Scrub shower wall grout tiles', 
+      'Dust ventilation grates', 
+      'Walls & baseboards', 
+      'Wipe light switches & door',
+      'Wipe door',
+      'Wash floor'
+    ] 
+  },
+  {
+    id: 'bedroom',
+    name: 'Bedroom',
+    tasks: [
+      'Sweep/vacuum under bed', 
+      'Wipe closet doors & handles',
+      'Tidy clothes rail rooms',
+      'Tidy a shelf',
+      'Flip or rotate mattress', 
+      'Windows & sills', 
+      'Dust light fixtures & bedside electrics', 
+      'Walls & baseboards', 
+      'Wipe door & light switches',
+      'Wipe surfaces',
+      'Mop floor'
+    ]
+  },
+  { 
+    id: 'living', 
+    name: 'Living Room', 
+    tasks: [
+      'Vacuum sofa cushions & creases', 
+      "Vacuum areas robot can't get to", 
+      'Windows & sills', 
+      'Sanitise remotes & dust TV screen', 
+      'Walls & baseboards', 
+      'Wipe light switches', 
+      'Wipe doors',
+      'Wipe surfaces'
+    ]
+  },
+  {
+    id: 'entry',
+    name: 'Entry',
+    tasks: [
+      'Windows & mirrors', 
+      'Shake & vacuum doormat', 
+      'Scrub boot trays', 
+      'Match & purge stray shoes/coats', 
+      'Wipe front door & switches', 
+      'Walls & baseboards', 
+      'Dust'
+    ]
+  },
+  {
+    id: 'laundry',
+    name: 'Laundry',
+    tasks: [
+      'Washing machine outside & drawer', 
+      'Washing machine auto-dose unit flush', 
+      'Washing machine filter drain', 
+      'Washing machine rubber seal wipe', 
+      'Dryer outside & control panel',
+      'Wipe dryer door seal & inner glass',
+      'Vacuum inside the lint trap cavity',
+      'Pull out and rinse condensation unit block'
+    ]
+  },
+  {
+    id: 'office',
+    name: 'Office',
+    tasks: [
+      'Windows & sills',
+      'Organise workstation',
+      'Sanitise laptop',
+      'Sanitise primary monitor',
+      'Sanitise mouse & keyboard', 
+      'Walls & baseboards', 
+      'Vacuum/wipe air filter exterior & pre-filter',
+      'Wipe down surfaces around the litter box area',
+      'Dust Kallax top & empty cubes',
+      'Pull out Kallax baskets to dust behind them',
+      'Wipe catch-all closet doors, handles & base tracking',
+      'Organise pet gear & check cleaning supply stock',
+      'Neaten foil, trash bags, toilet paper & kitchen towels',
+      'Wipe light switches & door'
+    ]
+  }
+];
+
 
     const EPOCH_DATE = new Date('2026-01-05T00:00:00'); 
 
@@ -109,9 +175,9 @@
       data() {
         return {
           rooms: ROOMS,
-          roomPointers: JSON.parse(localStorage.getItem('robin_room_pointers') || '{}'),
-          checkedStates: JSON.parse(localStorage.getItem('robin_completed_tasks') || '{}'),
-          lastProcessedWeek: localStorage.getItem('robin_last_week')
+          roomPointers: JSON.parse(localStorage.getItem('room_pointers') || '{}'),
+          checkedStates: JSON.parse(localStorage.getItem('completed_tasks') || '{}'),
+          lastProcessedWeek: localStorage.getItem('last_week')
         }
       },
       computed: {
@@ -165,12 +231,12 @@
               const currentPointer = this.roomPointers[prevRoom.id] || 0;
               const newPointer = (currentPointer + completedCount) % prevRoom.tasks.length;
               this.roomPointers[prevRoom.id] = newPointer;
-              localStorage.setItem('robin_room_pointers', JSON.stringify(this.roomPointers));
+              localStorage.setItem('room_pointers', JSON.stringify(this.roomPointers));
             }
           }
           
           this.lastProcessedWeek = currentWeek.toString();
-          localStorage.setItem('robin_last_week', this.lastProcessedWeek);
+          localStorage.setItem('last_week', this.lastProcessedWeek);
         },
         toggleTask(id) {
           const key = `${id}_w${this.currentWeekOffset}`;
@@ -179,7 +245,7 @@
           } else {
             this.checkedStates[key] = true;
           }
-          localStorage.setItem('robin_completed_tasks', JSON.stringify(this.checkedStates));
+          localStorage.setItem('completed_tasks', JSON.stringify(this.checkedStates));
         }
       }
     }).mount('#app');
