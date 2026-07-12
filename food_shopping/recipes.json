@@ -1,0 +1,121 @@
+[
+  {
+    "id": "lasagna",
+    "name": "Classic Lasagna",
+    "ingredients": [
+      {
+        "name": "Ground Beef",
+        "amount": 500,
+        "unit": "g"
+      },
+      {
+        "name": "Crushed Tomatoes",
+        "amount": 800,
+        "unit": "g"
+      },
+      {
+        "name": "Lasagna Sheets",
+        "amount": 250,
+        "unit": "g"
+      },
+      {
+        "name": "Mozzarella Cheese",
+        "amount": 300,
+        "unit": "g"
+      }
+    ]
+  },
+  {
+    "id": "bolognese",
+    "name": "Spaghetti Bolognese",
+    "ingredients": [
+      {
+        "name": "Ground Beef",
+        "amount": 500,
+        "unit": "g"
+      },
+      {
+        "name": "Crushed Tomatoes",
+        "amount": 400,
+        "unit": "g"
+      },
+      {
+        "name": "Spaghetti",
+        "amount": 400,
+        "unit": "g"
+      }
+    ]
+  },
+  {
+    "id": "banana-muffins",
+    "name": "Banana Bread Muffins",
+    "ingredients": [
+      {
+        "name": "Bananas",
+        "amount": 3,
+        "unit": "pcs"
+      },
+      {
+        "name": "Flour",
+        "amount": 200,
+        "unit": "g"
+      },
+      {
+        "name": "Sugar",
+        "amount": 150,
+        "unit": "g"
+      },
+      {
+        "name": "Butter",
+        "amount": 75,
+        "unit": "g"
+      }
+    ]
+  },
+  {
+    "id": "svampe-risotto",
+    "name": "Svampe Risotto",
+    "ingredients": [
+      {
+        "name": "Svampe",
+        "amount": 200,
+        "unit": "g"
+      },
+      {
+        "name": "Løg",
+        "amount": 200,
+        "unit": "g"
+      },
+      {
+        "name": "Hvidløg",
+        "amount": 1,
+        "unit": "pcs"
+      },
+      {
+        "name": "Risotto ris",
+        "amount": 300,
+        "unit": "g"
+      },
+      {
+        "name": "Hvidvin",
+        "amount": 200,
+        "unit": "ml"
+      },
+      {
+        "name": "Bouillon",
+        "amount": 1,
+        "unit": "L"
+      },
+      {
+        "name": "Parmesan",
+        "amount": 200,
+        "unit": "g"
+      },
+      {
+        "name": "Bacon i tern",
+        "amount": 150,
+        "unit": "g"
+      }
+    ]
+  }
+]
