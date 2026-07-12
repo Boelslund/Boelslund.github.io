@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Min Indkøbsliste</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+      @media print {
+        body {
+          background: white;
+        }
+        header {
+          background: white !important;
+          color: black !important;
+          border-bottom: 2px solid #000;
+        }
+        .no-print {
+          display: none !important;
+        }
+        #recipes-container {
+          display: none !important;
+        }
+        #shopping-list-container {
+          box-shadow: none !important;
+          border: none !important;
+        }
+        .sticky {
+          position: static !important;
+        }
+      }
+    </style>
+  </head>
+  <body
+    class="bg-gray-50 text-gray-800 font-sans antialiased min-h-screen pb-12"
+  >
+    <!-- Header -->
+    <header class="bg-emerald-600 text-white shadow-md p-6 mb-8">
+      <div class="max-w-5xl mx-auto flex justify-between items-center">
+        <div>
+          <h1 class="text-3xl font-bold tracking-tight">
+            Madplan & Indkøbsliste
+          </h1>
+          <p class="text-emerald-100 mt-1">
+            Vælg dine retter, juster hvad du allerede har, og få din
+            indkøbsliste.
+          </p>
+        </div>
+        <a
+          href="admin.html"
+          class="no-print bg-emerald-700 hover:bg-emerald-800 px-4 py-2 rounded-lg font-medium text-sm whitespace-nowrap transition"
+        >
+          ⚙️ Admin
+        </a>
+      </div>
+    </header>
+
+    <main class="max-w-5xl mx-auto px-4 grid grid-cols-1 md:grid-cols-3 gap-8">
+      <!-- Column 1 & 2: Recipes -->
+      <div class="md:col-span-2">
+        <h2 class="text-xl font-bold mb-4">1. Vælg Dine Retter</h2>
+        <div
+          id="recipes-container"
+          class="grid grid-cols-1 sm:grid-cols-2 gap-4"
+        >
+          <p class="text-gray-500 italic">Indlæser opskrifter...</p>
+        </div>
+      </div>
+
+      <!-- Column 3: Dynamic Shopping List -->
+      <div class="md:col-span-1">
+        <div
+          class="bg-white p-6 rounded-xl shadow-sm border border-gray-100 sticky top-4"
+        >
+          <div class="mb-6">
+            <h2 class="text-xl font-bold mb-2">2. Indkøbsliste</h2>
+            <div
+              class="flex gap-2 no-print justify-end"
+              id="list-actions"
+              style="display: none"
+            >
+              <button
+                onclick="copyShoppingList()"
+                class="text-xs bg-indigo-600 text-white px-3 py-1.5 rounded hover:bg-indigo-700 font-medium transition-colors"
+                title="Kopier til udklipsholder"
+              >
+                📋 Kopier
+              </button>
+              <button
+                onclick="clearPantryStock()"
+                class="text-xs bg-gray-600 text-white px-3 py-1.5 rounded hover:bg-gray-700 font-medium transition-colors"
+                title="Ryd alle 'Jeg har allerede' mængder"
+              >
+                🗑️ Ryd
+              </button>
+            </div>
+          </div>
+          <div id="shopping-list-container">
+            <p class="text-gray-500 italic text-sm">
+              Vælg en ret for at starte din liste.
+            </p>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- Toast Notification -->
+    <div
+      id="toast"
+      class="no-print fixed bottom-4 right-4 bg-gray-800 text-white px-4 py-2 rounded-lg shadow-lg text-sm font-medium hidden transition-opacity"
+    ></div>
+
+    <script src="app.js"></script>
+  </body>
+</html>

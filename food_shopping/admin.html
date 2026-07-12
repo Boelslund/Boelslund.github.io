@@ -1,0 +1,457 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Opskrifts Admin</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+  <body
+    class="bg-gray-50 text-gray-800 font-sans antialiased min-h-screen pb-12"
+  >
+    <!-- Header -->
+    <header class="bg-indigo-600 text-white shadow-md p-4 mb-6">
+      <div class="max-w-3xl mx-auto flex justify-between items-center">
+        <div>
+          <h1 class="text-2xl font-bold">Opskrifts Admin</h1>
+          <p class="text-indigo-100 text-sm mt-1">
+            Tilføj og rediger opskrifter - ændringer gemmes i GitHub
+          </p>
+        </div>
+        <a
+          href="index.html"
+          class="bg-indigo-700 hover:bg-indigo-800 px-4 py-2 rounded-lg font-medium text-sm whitespace-nowrap transition"
+        >
+          🛍️ Indkøbsliste
+        </a>
+      </div>
+    </header>
+
+    <main class="max-w-3xl mx-auto px-4">
+      <!-- GitHub Token Setup -->
+      <div
+        id="token-setup"
+        class="bg-yellow-50 border border-yellow-200 rounded-lg p-4 mb-6"
+      >
+        <h2 class="font-bold text-yellow-900 mb-2">🔑 GitHub Godkendelse</h2>
+        <p class="text-sm text-yellow-800 mb-3">
+          Indtast dit GitHub Personal Access Token for at aktivere auto-commit.
+          <a
+            href="https://github.com/settings/tokens/new?scopes=repo&description=Recipe%20Editor"
+            target="_blank"
+            class="underline font-medium"
+            >Opret token her</a
+          >
+          (kræver 'repo' tilladelse)
+        </p>
+        <div class="flex gap-2">
+          <input
+            type="password"
+            id="github-token"
+            placeholder="ghp_..."
+            class="flex-1 px-3 py-2 border border-yellow-300 rounded focus:outline-none focus:border-indigo-500 text-sm"
+          />
+          <button
+            onclick="saveToken()"
+            class="bg-indigo-600 text-white px-4 py-2 rounded font-medium hover:bg-indigo-700 text-sm"
+          >
+            Gem
+          </button>
+        </div>
+        <p class="text-xs text-yellow-700 mt-2">
+          Token gemmes kun lokalt i din browser.
+        </p>
+      </div>
+
+      <!-- Recipe List -->
+      <div
+        class="bg-white rounded-lg shadow-sm border border-gray-200 p-4 mb-6"
+      >
+        <div class="flex justify-between items-center mb-4">
+          <h2 class="text-xl font-bold">Dine Opskrifter</h2>
+          <button
+            onclick="showAddForm()"
+            class="bg-emerald-600 text-white px-4 py-2 rounded-lg font-medium hover:bg-emerald-700 text-sm"
+          >
+            + Tilføj Opskrift
+          </button>
+        </div>
+        <div id="recipe-list" class="space-y-2">
+          <p class="text-gray-500 italic text-sm">Indlæser opskrifter...</p>
+        </div>
+      </div>
+
+      <!-- Add/Edit Form (hidden by default) -->
+      <div
+        id="recipe-form"
+        class="bg-white rounded-lg shadow-sm border border-gray-200 p-4 hidden"
+      >
+        <h2 class="text-xl font-bold mb-4" id="form-title">Tilføj Opskrift</h2>
+
+        <div class="space-y-4">
+          <div>
+            <label class="block text-sm font-medium mb-1">Opskriftsnavn</label>
+            <input
+              type="text"
+              id="recipe-name"
+              placeholder="f.eks., Hønsekylling"
+              class="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:border-indigo-500"
+            />
+          </div>
+
+          <div>
+            <label class="block text-sm font-medium mb-2">Ingredienser</label>
+            <div id="ingredients-list" class="space-y-2 mb-2"></div>
+            <button
+              onclick="addIngredientRow()"
+              class="text-indigo-600 hover:text-indigo-700 text-sm font-medium"
+            >
+              + Tilføj Ingrediens
+            </button>
+          </div>
+
+          <div class="flex gap-2 pt-4 border-t">
+            <button
+              onclick="saveRecipe()"
+              class="flex-1 bg-indigo-600 text-white px-4 py-2 rounded-lg font-medium hover:bg-indigo-700"
+            >
+              Gem & Commit
+            </button>
+            <button
+              onclick="cancelForm()"
+              class="px-4 py-2 border border-gray-300 rounded-lg font-medium hover:bg-gray-50"
+            >
+              Annuller
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Status Messages -->
+      <div id="status-message" class="fixed bottom-4 right-4 hidden"></div>
+    </main>
+
+    <script>
+      const REPO_OWNER = "Boelslund";
+      const REPO_NAME = "Boelslund.github.io";
+      const FILE_PATH = "food_shopping/recipes.json";
+      const BRANCH = "main";
+
+      let recipes = [];
+      let currentEditId = null;
+      let fileSha = null; // Needed for GitHub API updates
+
+      // --- INITIALIZATION ---
+      async function init() {
+        const token = localStorage.getItem("github-token");
+        if (token) {
+          document.getElementById("github-token").value = "••••••••";
+          document
+            .getElementById("token-setup")
+            .classList.add("border-emerald-200", "bg-emerald-50");
+          document
+            .getElementById("token-setup")
+            .classList.remove("border-yellow-200", "bg-yellow-50");
+        }
+
+        await loadRecipes();
+      }
+
+      // --- TOKEN MANAGEMENT ---
+      function saveToken() {
+        const token = document.getElementById("github-token").value;
+        if (token && token !== "••••••••") {
+          localStorage.setItem("github-token", token);
+          showStatus("Token gemt!", "success");
+          document.getElementById("github-token").value = "••••••••";
+          document
+            .getElementById("token-setup")
+            .classList.add("border-emerald-200", "bg-emerald-50");
+          document
+            .getElementById("token-setup")
+            .classList.remove("border-yellow-200", "bg-yellow-50");
+        }
+      }
+
+      // --- LOAD RECIPES ---
+      async function loadRecipes() {
+        try {
+          const response = await fetch("recipes.json");
+          recipes = await response.json();
+
+          // Get the current file SHA from GitHub for updates
+          const token = localStorage.getItem("github-token");
+          if (token) {
+            await fetchFileSha(token);
+          }
+
+          renderRecipeList();
+        } catch (error) {
+          console.error("Error loading recipes:", error);
+          document.getElementById("recipe-list").innerHTML =
+            '<p class="text-rose-600 text-sm">Fejl ved indlæsning af opskrifter</p>';
+        }
+      }
+
+      async function fetchFileSha(token) {
+        try {
+          const response = await fetch(
+            `https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/${FILE_PATH}?ref=${BRANCH}`,
+            {
+              headers: {
+                Authorization: `token ${token}`,
+                Accept: "application/vnd.github.v3+json",
+              },
+            },
+          );
+          if (response.ok) {
+            const data = await response.json();
+            fileSha = data.sha;
+          }
+        } catch (error) {
+          console.error("Error fetching file SHA:", error);
+        }
+      }
+
+      // --- RENDER RECIPE LIST ---
+      function renderRecipeList() {
+        const container = document.getElementById("recipe-list");
+
+        if (recipes.length === 0) {
+          container.innerHTML =
+            '<p class="text-gray-500 italic text-sm">Ingen opskrifter endnu. Tilføj din første!</p>';
+          return;
+        }
+
+        container.innerHTML = recipes
+          .map(
+            (recipe) => `
+          <div class="flex justify-between items-center p-3 border border-gray-200 rounded-lg hover:bg-gray-50">
+            <div>
+              <div class="font-medium">${recipe.name}</div>
+              <div class="text-xs text-gray-500">${recipe.ingredients.length} ingredienser</div>
+            </div>
+            <div class="flex gap-2">
+              <button onclick="editRecipe('${recipe.id}')"
+                      class="text-indigo-600 hover:text-indigo-700 text-sm font-medium px-3 py-1">
+                Rediger
+              </button>
+              <button onclick="deleteRecipe('${recipe.id}')"
+                      class="text-rose-600 hover:text-rose-700 text-sm font-medium px-3 py-1">
+                Slet
+              </button>
+            </div>
+          </div>
+        `,
+          )
+          .join("");
+      }
+
+      // --- FORM MANAGEMENT ---
+      function showAddForm() {
+        currentEditId = null;
+        document.getElementById("form-title").textContent = "Tilføj Opskrift";
+        document.getElementById("recipe-name").value = "";
+        document.getElementById("ingredients-list").innerHTML = "";
+        addIngredientRow(); // Start with one empty ingredient
+        document.getElementById("recipe-form").classList.remove("hidden");
+        window.scrollTo({
+          top: document.getElementById("recipe-form").offsetTop - 20,
+          behavior: "smooth",
+        });
+      }
+
+      function editRecipe(id) {
+        const recipe = recipes.find((r) => r.id === id);
+        if (!recipe) return;
+
+        currentEditId = id;
+        document.getElementById("form-title").textContent = "Rediger Opskrift";
+        document.getElementById("recipe-name").value = recipe.name;
+
+        document.getElementById("ingredients-list").innerHTML = "";
+        recipe.ingredients.forEach((ing) => {
+          addIngredientRow(ing.name, ing.amount, ing.unit);
+        });
+
+        document.getElementById("recipe-form").classList.remove("hidden");
+        window.scrollTo({
+          top: document.getElementById("recipe-form").offsetTop - 20,
+          behavior: "smooth",
+        });
+      }
+
+      function cancelForm() {
+        document.getElementById("recipe-form").classList.add("hidden");
+        currentEditId = null;
+      }
+
+      function addIngredientRow(name = "", amount = "", unit = "g") {
+        const container = document.getElementById("ingredients-list");
+        const index = container.children.length;
+
+        const row = document.createElement("div");
+        row.className = "flex gap-2 items-center";
+        row.innerHTML = `
+          <input type="text"
+                 placeholder="Ingrediens"
+                 value="${name}"
+                 class="flex-1 px-2 py-1.5 border border-gray-300 rounded text-sm focus:outline-none focus:border-indigo-500 ingredient-name">
+          <input type="number"
+                 placeholder="Mængde"
+                 value="${amount}"
+                 class="w-20 px-2 py-1.5 border border-gray-300 rounded text-sm focus:outline-none focus:border-indigo-500 ingredient-amount">
+          <select class="px-2 py-1.5 border border-gray-300 rounded text-sm focus:outline-none focus:border-indigo-500 ingredient-unit">
+            <option value="g" ${unit === "g" ? "selected" : ""}>g</option>
+            <option value="kg" ${unit === "kg" ? "selected" : ""}>kg</option>
+            <option value="ml" ${unit === "ml" ? "selected" : ""}>ml</option>
+            <option value="L" ${unit === "L" ? "selected" : ""}>L</option>
+            <option value="stk" ${unit === "stk" ? "selected" : ""}>stk</option>
+            <option value="spsk" ${unit === "spsk" ? "selected" : ""}>spsk</option>
+            <option value="tsk" ${unit === "tsk" ? "selected" : ""}>tsk</option>
+          </select>
+          <button onclick="this.parentElement.remove()"
+                  class="text-rose-600 hover:text-rose-700 text-sm px-2 py-1.5">
+            ✕
+          </button>
+        `;
+        container.appendChild(row);
+      }
+
+      // --- SAVE RECIPE ---
+      async function saveRecipe() {
+        const name = document.getElementById("recipe-name").value.trim();
+        if (!name) {
+          showStatus("Indtast venligst et opskriftsnavn", "error");
+          return;
+        }
+
+        const ingredientRows =
+          document.getElementById("ingredients-list").children;
+        const ingredients = [];
+
+        for (let row of ingredientRows) {
+          const ingName = row.querySelector(".ingredient-name").value.trim();
+          const amount = parseFloat(
+            row.querySelector(".ingredient-amount").value,
+          );
+          const unit = row.querySelector(".ingredient-unit").value;
+
+          if (ingName && amount) {
+            ingredients.push({ name: ingName, amount, unit });
+          }
+        }
+
+        if (ingredients.length === 0) {
+          showStatus("Tilføj venligst mindst én ingrediens", "error");
+          return;
+        }
+
+        // Generate ID from name if new recipe
+        const id =
+          currentEditId || name.toLowerCase().replace(/[^a-z0-9]+/g, "-");
+
+        const recipe = { id, name, ingredients };
+
+        // Update recipes array
+        if (currentEditId) {
+          const index = recipes.findIndex((r) => r.id === currentEditId);
+          recipes[index] = recipe;
+        } else {
+          recipes.push(recipe);
+        }
+
+        // Commit to GitHub
+        const action = currentEditId ? "update" : "add";
+        await commitToGitHub(action, recipe.name);
+
+        cancelForm();
+        renderRecipeList();
+      }
+
+      // --- DELETE RECIPE ---
+      async function deleteRecipe(id) {
+        if (!confirm("Er du sikker på du vil slette denne opskrift?")) return;
+
+        const recipeName = recipes.find((r) => r.id === id)?.name || "recipe";
+        recipes = recipes.filter((r) => r.id !== id);
+        await commitToGitHub("delete", recipeName);
+        renderRecipeList();
+      }
+
+      // --- GITHUB COMMIT ---
+      async function commitToGitHub(
+        action = "opdater",
+        recipeName = "opskrifter",
+      ) {
+        const token = localStorage.getItem("github-token");
+        if (!token || token === "••••••••") {
+          showStatus("Indstil venligst dit GitHub token først", "error");
+          return;
+        }
+
+        showStatus("Committer til GitHub...", "info");
+
+        try {
+          const content = btoa(
+            unescape(encodeURIComponent(JSON.stringify(recipes, null, 2))),
+          );
+
+          const commitMessage = `${action} ${recipeName.toLowerCase()} via admin (${new Date().toLocaleString()})`;
+
+          const response = await fetch(
+            `https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/${FILE_PATH}`,
+            {
+              method: "PUT",
+              headers: {
+                Authorization: `token ${token}`,
+                Accept: "application/vnd.github.v3+json",
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({
+                message: commitMessage,
+                content: content,
+                sha: fileSha,
+                branch: BRANCH,
+              }),
+            },
+          );
+
+          if (!response.ok) {
+            const error = await response.json();
+            throw new Error(error.message || "GitHub API error");
+          }
+
+          const data = await response.json();
+          fileSha = data.content.sha; // Update SHA for next commit
+
+          showStatus("✓ Ændringer committed til GitHub!", "success");
+        } catch (error) {
+          console.error("Error committing to GitHub:", error);
+          showStatus(`Fejl: ${error.message}`, "error");
+        }
+      }
+
+      // --- STATUS MESSAGES ---
+      function showStatus(message, type) {
+        const statusEl = document.getElementById("status-message");
+        statusEl.textContent = message;
+        statusEl.className = `fixed bottom-4 right-4 px-4 py-2 rounded-lg shadow-lg text-sm font-medium ${
+          type === "success"
+            ? "bg-emerald-600 text-white"
+            : type === "error"
+              ? "bg-rose-600 text-white"
+              : "bg-indigo-600 text-white"
+        }`;
+        statusEl.classList.remove("hidden");
+
+        setTimeout(() => {
+          statusEl.classList.add("hidden");
+        }, 3000);
+      }
+
+      // Start the app
+      init();
+    </script>
+  </body>
+</html>

@@ -1,73 +1,713 @@
 [
   {
-    "id": "lasagna",
-    "name": "Classic Lasagna",
+    "id": "chicken-cordon-bleu",
+    "name": "Chicken Cordon Bleu",
     "ingredients": [
       {
-        "name": "Ground Beef",
-        "amount": 500,
+        "name": "Tynde skiver skinke",
+        "amount": 4,
+        "unit": "stk"
+      },
+      {
+        "name": "Emmentaler",
+        "amount": 113,
         "unit": "g"
       },
       {
-        "name": "Crushed Tomatoes",
+        "name": "Kyllingebryst uden ben og skind",
+        "amount": 2,
+        "unit": "stk"
+      },
+      {
+        "name": "Salt",
+        "amount": 1,
+        "unit": "tsk"
+      },
+      {
+        "name": "Peber",
+        "amount": 1,
+        "unit": "tsk"
+      },
+      {
+        "name": "Cornflakes",
+        "amount": 42,
+        "unit": "g"
+      },
+      {
+        "name": "Smør",
+        "amount": 42,
+        "unit": "g"
+      },
+      {
+        "name": "Mayonnaise",
+        "amount": 118,
+        "unit": "ml"
+      },
+      {
+        "name": "Sennep",
+        "amount": 2,
+        "unit": "tsk"
+      }
+    ]
+  },
+  {
+    "id": "cottage-pie",
+    "name": "Cottage Pie med Kartoffelmos",
+    "ingredients": [
+      {
+        "name": "Kartofler til mos",
         "amount": 800,
         "unit": "g"
       },
       {
-        "name": "Lasagna Sheets",
-        "amount": 250,
-        "unit": "g"
+        "name": "Smør",
+        "amount": 1.5,
+        "unit": "spsk"
       },
       {
-        "name": "Mozzarella Cheese",
-        "amount": 300,
-        "unit": "g"
-      }
-    ]
-  },
-  {
-    "id": "bolognese",
-    "name": "Spaghetti Bolognese",
-    "ingredients": [
-      {
-        "name": "Ground Beef",
-        "amount": 500,
-        "unit": "g"
+        "name": "Letmælk",
+        "amount": 75,
+        "unit": "ml"
       },
       {
-        "name": "Crushed Tomatoes",
-        "amount": 400,
-        "unit": "g"
+        "name": "Salt",
+        "amount": 1,
+        "unit": "tsk"
       },
       {
-        "name": "Spaghetti",
-        "amount": 400,
-        "unit": "g"
-      }
-    ]
-  },
-  {
-    "id": "banana-muffins",
-    "name": "Banana Bread Muffins",
-    "ingredients": [
-      {
-        "name": "Bananas",
-        "amount": 3,
-        "unit": "pcs"
+        "name": "Peber",
+        "amount": 1,
+        "unit": "tsk"
       },
       {
-        "name": "Flour",
-        "amount": 200,
-        "unit": "g"
+        "name": "Løg",
+        "amount": 1,
+        "unit": "stk"
       },
       {
-        "name": "Sugar",
+        "name": "Hvidløg",
+        "amount": 2,
+        "unit": "stk"
+      },
+      {
+        "name": "Gulerødder",
         "amount": 150,
         "unit": "g"
       },
       {
-        "name": "Butter",
+        "name": "Hakket oksekød",
+        "amount": 500,
+        "unit": "g"
+      },
+      {
+        "name": "tomatpuré",
         "amount": 75,
+        "unit": "g"
+      },
+      {
+        "name": "Oksebouillon",
+        "amount": 2,
+        "unit": "tsk"
+      },
+      {
+        "name": "Vand",
+        "amount": 150,
+        "unit": "ml"
+      },
+      {
+        "name": "timian, tørret",
+        "amount": 0.75,
+        "unit": "tsk"
+      },
+      {
+        "name": "Olivenolie",
+        "amount": 2,
+        "unit": "spsk"
+      }
+    ]
+  },
+  {
+    "id": "cremet-pasta-med-kylling",
+    "name": "Cremet Pasta med Kylling",
+    "ingredients": [
+      {
+        "name": "Pasta",
+        "amount": 400,
+        "unit": "g"
+      },
+      {
+        "name": "Rødløg",
+        "amount": 1,
+        "unit": "stk"
+      },
+      {
+        "name": "Rød peberfrugt",
+        "amount": 1,
+        "unit": "stk"
+      },
+      {
+        "name": "Gul peberfrugt",
+        "amount": 1,
+        "unit": "stk"
+      },
+      {
+        "name": "Kyllingeinderfilet",
+        "amount": 600,
+        "unit": "g"
+      },
+      {
+        "name": "kyllingebouillon",
+        "amount": 2,
+        "unit": "tsk"
+      },
+      {
+        "name": "Friskost",
+        "amount": 150,
+        "unit": "g"
+      },
+      {
+        "name": "Sød chilisauce",
+        "amount": 1,
+        "unit": "spsk"
+      },
+      {
+        "name": "Basilikum, frisk",
+        "amount": 20,
+        "unit": "g"
+      }
+    ]
+  },
+  {
+    "id": "fyldig-grill-salat",
+    "name": "Fyldig Grill Salat",
+    "ingredients": [
+      {
+        "name": "Rød peberfrugt",
+        "amount": 1,
+        "unit": "stk"
+      },
+      {
+        "name": "Blommetomater",
+        "amount": 3,
+        "unit": "stk"
+      },
+      {
+        "name": "Frisk mozzarella",
+        "amount": 150,
+        "unit": "g"
+      },
+      {
+        "name": "Bulgur, tør",
+        "amount": 100,
+        "unit": "ml"
+      },
+      {
+        "name": "Avokado",
+        "amount": 1,
+        "unit": "stk"
+      },
+      {
+        "name": "Frosne ærter",
+        "amount": 200,
+        "unit": "ml"
+      }
+    ]
+  },
+  {
+    "id": "gratinerede-tortillas",
+    "name": "Gratinerede Tortillas med Oksekød og Grønt",
+    "ingredients": [
+      {
+        "name": "Løg",
+        "amount": 1,
+        "unit": "stk"
+      },
+      {
+        "name": "Hvidløg",
+        "amount": 2,
+        "unit": "stk"
+      },
+      {
+        "name": "Rød peberfrugt",
+        "amount": 1,
+        "unit": "stk"
+      },
+      {
+        "name": "Squash",
+        "amount": 1,
+        "unit": "stk"
+      },
+      {
+        "name": "Hakket oksekød",
+        "amount": 500,
+        "unit": "g"
+      },
+      {
+        "name": "Spidskommen",
+        "amount": 0.5,
+        "unit": "tsk"
+      },
+      {
+        "name": "oregano, tørret",
+        "amount": 0.75,
+        "unit": "tsk"
+      },
+      {
+        "name": "Cherrytomater",
+        "amount": 200,
+        "unit": "g"
+      },
+      {
+        "name": "tomatpuré",
+        "amount": 75,
+        "unit": "g"
+      },
+      {
+        "name": "Oksebouillon",
+        "amount": 1,
+        "unit": "tsk"
+      },
+      {
+        "name": "Tortillas",
+        "amount": 6,
+        "unit": "stk"
+      },
+      {
+        "name": "Cheddar",
+        "amount": 100,
+        "unit": "g"
+      }
+    ]
+  },
+  {
+    "id": "medister-m-kartofler-sovs-og-groent",
+    "name": "Medister m. Kartofler, Sovs og Grønt",
+    "ingredients": [
+      {
+        "name": "Kartofler",
+        "amount": 600,
+        "unit": "g"
+      },
+      {
+        "name": "rosmarin, tørret",
+        "amount": 0.75,
+        "unit": "tsk"
+      },
+      {
+        "name": "Medister",
+        "amount": 500,
+        "unit": "g"
+      },
+      {
+        "name": "Vand",
+        "amount": 250,
+        "unit": "ml"
+      },
+      {
+        "name": "Smør",
+        "amount": 1,
+        "unit": "spsk"
+      },
+      {
+        "name": "Kyllingebouillon",
+        "amount": 4,
+        "unit": "tsk"
+      },
+      {
+        "name": "Majsstivelse",
+        "amount": 4,
+        "unit": "tsk"
+      },
+      {
+        "name": "Letmælk",
+        "amount": 75,
+        "unit": "ml"
+      },
+      {
+        "name": "Gulerødder",
+        "amount": 300,
+        "unit": "g"
+      },
+      {
+        "name": "Blomkål",
+        "amount": 300,
+        "unit": "g"
+      },
+      {
+        "name": "Salt",
+        "amount": 1,
+        "unit": "tsk"
+      },
+      {
+        "name": "Peber",
+        "amount": 1,
+        "unit": "tsk"
+      }
+    ]
+  },
+  {
+    "id": "nem-tortellini-suppe",
+    "name": "Nem Tortellini Suppe",
+    "ingredients": [
+      {
+        "name": "Tortellini",
+        "amount": 250,
+        "unit": "g"
+      },
+      {
+        "name": "Gulerødder",
+        "amount": 2,
+        "unit": "stk"
+      },
+      {
+        "name": "Squash",
+        "amount": 1,
+        "unit": "stk"
+      },
+      {
+        "name": "Løg",
+        "amount": 1,
+        "unit": "stk"
+      },
+      {
+        "name": "Hvidløg",
+        "amount": 2,
+        "unit": "stk"
+      },
+      {
+        "name": "Tomatpuré",
+        "amount": 2,
+        "unit": "spsk"
+      },
+      {
+        "name": "Grøntsagsbouillon",
+        "amount": 800,
+        "unit": "ml"
+      },
+      {
+        "name": "Mascarpone",
+        "amount": 2,
+        "unit": "spsk"
+      },
+      {
+        "name": "Oregano, tørret",
+        "amount": 1,
+        "unit": "tsk"
+      },
+      {
+        "name": "spinat",
+        "amount": 50,
+        "unit": "g"
+      },
+      {
+        "name": "Parmesan",
+        "amount": 50,
+        "unit": "g"
+      }
+    ]
+  },
+  {
+    "id": "orzo-pasta-med-porrer-aerter-og-bacon",
+    "name": "Orzo Pasta med Porrer, Ærter og Bacon",
+    "ingredients": [
+      {
+        "name": "Puntalette pasta",
+        "amount": 300,
+        "unit": "ml"
+      },
+      {
+        "name": "Porrer",
+        "amount": 2,
+        "unit": "stk"
+      },
+      {
+        "name": "Fløde",
+        "amount": 50,
+        "unit": "ml"
+      },
+      {
+        "name": "Grøntsagsbouillon",
+        "amount": 600,
+        "unit": "ml"
+      },
+      {
+        "name": "Frosne ærter",
+        "amount": 150,
+        "unit": "g"
+      },
+      {
+        "name": "Bacon i tern",
+        "amount": 100,
+        "unit": "g"
+      },
+      {
+        "name": "Citron",
+        "amount": 1,
+        "unit": "stk"
+      },
+      {
+        "name": "Parmesan",
+        "amount": 50,
+        "unit": "g"
+      },
+      {
+        "name": "Salt",
+        "amount": 1,
+        "unit": "tsk"
+      },
+      {
+        "name": "Peber",
+        "amount": 1,
+        "unit": "tsk"
+      }
+    ]
+  },
+  {
+    "id": "pandekager-gammeldags",
+    "name": "Pandekager, Gammeldags",
+    "ingredients": [
+      {
+        "name": "Æg",
+        "amount": 4,
+        "unit": "stk"
+      },
+      {
+        "name": "Hvedemel",
+        "amount": 150,
+        "unit": "g"
+      },
+      {
+        "name": "Smør",
+        "amount": 25,
+        "unit": "g"
+      },
+      {
+        "name": "Sødmælk",
+        "amount": 300,
+        "unit": "ml"
+      },
+      {
+        "name": "Salt",
+        "amount": 1,
+        "unit": "tsk"
+      },
+      {
+        "name": "Sukker",
+        "amount": 50,
+        "unit": "g"
+      },
+      {
+        "name": "Vaniljesukker",
+        "amount": 2,
+        "unit": "tsk"
+      }
+    ]
+  },
+  {
+    "id": "paeretaerte",
+    "name": "Pæretærte",
+    "ingredients": [
+      {
+        "name": "Pærer på dåse",
+        "amount": 1,
+        "unit": "stk"
+      },
+      {
+        "name": "Hvedemel",
+        "amount": 250,
+        "unit": "g"
+      },
+      {
+        "name": "Smør",
+        "amount": 150,
+        "unit": "g"
+      },
+      {
+        "name": "Sukker",
+        "amount": 150,
+        "unit": "g"
+      },
+      {
+        "name": "Vaniljesukker",
+        "amount": 1,
+        "unit": "tsk"
+      },
+      {
+        "name": "Æg",
+        "amount": 1,
+        "unit": "stk"
+      },
+      {
+        "name": "Vand",
+        "amount": 1,
+        "unit": "spsk"
+      }
+    ]
+  },
+  {
+    "id": "ramen-med-flaesk",
+    "name": "Ramen med Flæsk",
+    "ingredients": [
+      {
+        "name": "Flæsk",
+        "amount": 250,
+        "unit": "g"
+      },
+      {
+        "name": "Soya",
+        "amount": 5,
+        "unit": "spsk"
+      },
+      {
+        "name": "Sukker",
+        "amount": 3,
+        "unit": "spsk"
+      },
+      {
+        "name": "Hvidløg",
+        "amount": 6,
+        "unit": "stk"
+      },
+      {
+        "name": "Ingefær",
+        "amount": 5,
+        "unit": "g"
+      },
+      {
+        "name": "Sesamolie",
+        "amount": 2,
+        "unit": "spsk"
+      },
+      {
+        "name": "Forårsløg",
+        "amount": 12,
+        "unit": "stk"
+      },
+      {
+        "name": "Bacon i skiver",
+        "amount": 3,
+        "unit": "stk"
+      },
+      {
+        "name": "Grøntsagsbouillon",
+        "amount": 500,
+        "unit": "ml"
+      },
+      {
+        "name": "Neutral olie",
+        "amount": 100,
+        "unit": "ml"
+      },
+      {
+        "name": "Æg",
+        "amount": 1,
+        "unit": "stk"
+      },
+      {
+        "name": "Nudler",
+        "amount": 100,
+        "unit": "g"
+      }
+    ]
+  },
+  {
+    "id": "tines-risotto",
+    "name": "Tines Risotto",
+    "ingredients": [
+      {
+        "name": "Løg",
+        "amount": 1,
+        "unit": "stk"
+      },
+      {
+        "name": "Bacon i tern",
+        "amount": 100,
+        "unit": "g"
+      },
+      {
+        "name": "Kylling",
+        "amount": 350,
+        "unit": "g"
+      },
+      {
+        "name": "Risotto ris",
+        "amount": 150,
+        "unit": "g"
+      },
+      {
+        "name": "Hvidvin",
+        "amount": 100,
+        "unit": "ml"
+      },
+      {
+        "name": "Grøntsagsbouillon",
+        "amount": 500,
+        "unit": "ml"
+      },
+      {
+        "name": "Gulerødder",
+        "amount": 4,
+        "unit": "stk"
+      },
+      {
+        "name": "Frosne ærter",
+        "amount": 250,
+        "unit": "ml"
+      },
+      {
+        "name": "Spinat",
+        "amount": 50,
+        "unit": "g"
+      },
+      {
+        "name": "parmesan",
+        "amount": 60,
+        "unit": "g"
+      }
+    ]
+  },
+  {
+    "id": "trofie-all-amatriciana",
+    "name": "Trofie all\u0027 Amatriciana",
+    "ingredients": [
+      {
+        "name": "Bacon i tern",
+        "amount": 250,
+        "unit": "g"
+      },
+      {
+        "name": "Løg",
+        "amount": 1,
+        "unit": "stk"
+      },
+      {
+        "name": "Hvidløg",
+        "amount": 2,
+        "unit": "stk"
+      },
+      {
+        "name": "Olivenolie",
+        "amount": 1,
+        "unit": "spsk"
+      },
+      {
+        "name": "Passata",
+        "amount": 700,
+        "unit": "g"
+      },
+      {
+        "name": "Sukker",
+        "amount": 0.5,
+        "unit": "tsk"
+      },
+      {
+        "name": "Basilikum, frisk",
+        "amount": 8,
+        "unit": "stk"
+      },
+      {
+        "name": "Trofie pasta",
+        "amount": 300,
         "unit": "g"
       }
     ]
@@ -89,7 +729,7 @@
       {
         "name": "Hvidløg",
         "amount": 1,
-        "unit": "pcs"
+        "unit": "stk"
       },
       {
         "name": "Risotto ris",
@@ -102,7 +742,7 @@
         "unit": "ml"
       },
       {
-        "name": "Bouillon",
+        "name": "Grøntsagsbouillon",
         "amount": 1,
         "unit": "L"
       },
