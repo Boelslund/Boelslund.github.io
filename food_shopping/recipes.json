@@ -14,7 +14,7 @@
         "unit": "g"
       },
       {
-        "name": "Kyllingebryst uden ben og skind",
+        "name": "Kyllingebryst",
         "amount": 2,
         "unit": "stk"
       },
@@ -660,7 +660,7 @@
         "unit": "g"
       },
       {
-        "name": "parmesan",
+        "name": "Parmesan",
         "amount": 60,
         "unit": "g"
       }
@@ -755,6 +755,124 @@
         "name": "Bacon i tern",
         "amount": 150,
         "unit": "g"
+      }
+    ]
+  },
+  {
+    "id": "cremet-pasta-med-laks",
+    "name": "Cremet pasta med laks",
+    "ingredients": [
+      {
+        "name": "Frisk pasta",
+        "amount": 250,
+        "unit": "g"
+      },
+      {
+        "name": "Rødløg",
+        "amount": 1,
+        "unit": "stk"
+      },
+      {
+        "name": "Hvidløg",
+        "amount": 1,
+        "unit": "fed"
+      },
+      {
+        "name": "Smør",
+        "amount": 1,
+        "unit": "spsk"
+      },
+      {
+        "name": "Laks",
+        "amount": 200,
+        "unit": "g"
+      },
+      {
+        "name": "Fløde",
+        "amount": 1,
+        "unit": "dl"
+      },
+      {
+        "name": "Creme fraîche 18%",
+        "amount": 0.75,
+        "unit": "dl"
+      },
+      {
+        "name": "Citron",
+        "amount": 0.5,
+        "unit": "stk"
+      },
+      {
+        "name": "Muskatnød",
+        "amount": 0.5,
+        "unit": "tsk"
+      }
+    ]
+  },
+  {
+    "id": "carbonara",
+    "name": "Carbonara",
+    "ingredients": [
+      {
+        "name": "Bacon i skiver",
+        "amount": 300,
+        "unit": "g"
+      },
+      {
+        "name": "Parmesan",
+        "amount": 200,
+        "unit": "g"
+      },
+      {
+        "name": "Æg",
+        "amount": 4,
+        "unit": "stk"
+      },
+      {
+        "name": "Spaghetti",
+        "amount": 300,
+        "unit": "g"
+      },
+      {
+        "name": "Peber",
+        "amount": 1,
+        "unit": "tsk"
+      },
+      {
+        "name": "Hvidløg",
+        "amount": 3,
+        "unit": "fed"
+      }
+    ]
+  },
+  {
+    "id": "caesar-salat",
+    "name": "Caesar Salat",
+    "ingredients": [
+      {
+        "name": "Kyllingeinderfilet",
+        "amount": 400,
+        "unit": "g"
+      },
+      {
+        "name": "Romaine salat",
+        "amount": 1,
+        "unit": "stk"
+      },
+      {
+        "name": "Parmesan",
+        "amount": 50,
+        "unit": "g"
+      },
+      {
+        "name": "Croutoner",
+        "amount": 100,
+        "unit": "g"
+      },
+      {
+        "name": "Caesar dressing",
+        "amount": 100,
+        "unit": "ml"
       }
     ]
   }

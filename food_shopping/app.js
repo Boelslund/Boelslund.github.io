@@ -91,9 +91,10 @@ function normalizeToBaseUnit(amount, unit) {
     g: 1,
     L: 1000,
     ml: 1,
-    // spsk: 15,
-    // tsk: 5,
+    spsk: 1,
+    tsk: 1,
     stk: 1,
+    fed: 1,
   };
   return amount * (conversions[unit] || 1);
 }
