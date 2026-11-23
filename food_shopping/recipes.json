@@ -884,6 +884,26 @@
         "name": "Kyllinge fillet",
         "amount": 400,
         "unit": "g"
+      },
+      {
+        "name": "Fløde",
+        "amount": 100,
+        "unit": "ml"
+      },
+      {
+        "name": "Spaghetti",
+        "amount": 400,
+        "unit": "g"
+      },
+      {
+        "name": "Parmesan",
+        "amount": 100,
+        "unit": "g"
+      },
+      {
+        "name": "Hvidløg",
+        "amount": 1,
+        "unit": "fed"
       }
     ]
   }
