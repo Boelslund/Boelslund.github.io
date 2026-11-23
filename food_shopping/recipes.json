@@ -668,7 +668,7 @@
   },
   {
     "id": "trofie-all-amatriciana",
-    "name": "Trofie all\u0027 Amatriciana",
+    "name": "Trofie all' Amatriciana",
     "ingredients": [
       {
         "name": "Bacon i tern",
@@ -873,6 +873,17 @@
         "name": "Caesar dressing",
         "amount": 100,
         "unit": "ml"
+      }
+    ]
+  },
+  {
+    "id": "alfredo",
+    "name": "Alfredo",
+    "ingredients": [
+      {
+        "name": "Kyllinge fillet",
+        "amount": 400,
+        "unit": "g"
       }
     ]
   }
