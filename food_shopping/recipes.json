@@ -906,5 +906,56 @@
         "unit": "fed"
       }
     ]
+  },
+  {
+    "id": "burrito-i-ovn",
+    "name": "Burrito i ovn",
+    "ingredients": [
+      {
+        "name": "Hakket oksekød",
+        "amount": 500,
+        "unit": "g"
+      },
+      {
+        "name": "Tortillas",
+        "amount": 6,
+        "unit": "stk"
+      },
+      {
+        "name": "Rød cheddar",
+        "amount": 200,
+        "unit": "g"
+      },
+      {
+        "name": "Bønner på dåse",
+        "amount": 1,
+        "unit": "stk"
+      },
+      {
+        "name": "Taco kryddermix",
+        "amount": 1,
+        "unit": "stk"
+      },
+      {
+        "name": "Rød peberfrugt",
+        "amount": 1,
+        "unit": "stk"
+      },
+      {
+        "name": "Creme fraiche",
+        "amount": 300,
+        "unit": "g"
+      },
+      {
+        "name": "Taco sauce",
+        "amount": 1,
+        "unit": "stk"
+      },
+      {
+        "name": "Avocado",
+        "amount": 1,
+        "unit": "stk"
+      }
+    ]
   }
 ]
