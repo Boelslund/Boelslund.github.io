@@ -957,5 +957,61 @@
         "unit": "stk"
       }
     ]
+  },
+  {
+    "id": "koteletter-i-fad",
+    "name": "Koteletter i fad",
+    "ingredients": [
+      {
+        "name": "Koteletter",
+        "amount": 500,
+        "unit": "g"
+      },
+      {
+        "name": "Bacon",
+        "amount": 100,
+        "unit": "g"
+      },
+      {
+        "name": "Løg",
+        "amount": 2,
+        "unit": "stk"
+      },
+      {
+        "name": "Champignon",
+        "amount": 500,
+        "unit": "g"
+      },
+      {
+        "name": "Hakkede tomater på dåse",
+        "amount": 1,
+        "unit": "stk"
+      },
+      {
+        "name": "Fløde",
+        "amount": 250,
+        "unit": "ml"
+      },
+      {
+        "name": "Paprika",
+        "amount": 1,
+        "unit": "tsk"
+      },
+      {
+        "name": "Røget paprika",
+        "amount": 1,
+        "unit": "tsk"
+      },
+      {
+        "name": "Timian",
+        "amount": 2,
+        "unit": "tsk"
+      },
+      {
+        "name": "Ris",
+        "amount": 300,
+        "unit": "ml"
+      }
+    ]
   }
 ]
