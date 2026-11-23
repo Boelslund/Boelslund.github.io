@@ -1079,5 +1079,26 @@
         "unit": "ml"
       }
     ]
+  },
+  {
+    "id": "fiskefrikadeller",
+    "name": "Fiskefrikadeller",
+    "ingredients": [
+      {
+        "name": "Fiskefars",
+        "amount": 400,
+        "unit": "g"
+      },
+      {
+        "name": "Kartofler",
+        "amount": 1,
+        "unit": "kg"
+      },
+      {
+        "name": "Smør",
+        "amount": 200,
+        "unit": "g"
+      }
+    ]
   }
 ]
