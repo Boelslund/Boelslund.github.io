@@ -1013,5 +1013,71 @@
         "unit": "ml"
       }
     ]
+  },
+  {
+    "id": "m-rbradgryde",
+    "name": "Mørbradgryde",
+    "ingredients": [
+      {
+        "name": "Bacon",
+        "amount": 100,
+        "unit": "g"
+      },
+      {
+        "name": "Champignon",
+        "amount": 200,
+        "unit": "g"
+      },
+      {
+        "name": "Løg",
+        "amount": 3,
+        "unit": "stk"
+      },
+      {
+        "name": "Svinemørbrad",
+        "amount": 450,
+        "unit": "g"
+      },
+      {
+        "name": "Wiener pølser",
+        "amount": 150,
+        "unit": "g"
+      },
+      {
+        "name": "Paprika",
+        "amount": 2,
+        "unit": "tsk"
+      },
+      {
+        "name": "Røget paprika",
+        "amount": 0.5,
+        "unit": "tsk"
+      },
+      {
+        "name": "Tomatpuré",
+        "amount": 75,
+        "unit": "g"
+      },
+      {
+        "name": "Hakkede tomater på dåse",
+        "amount": 1,
+        "unit": "stk"
+      },
+      {
+        "name": "Rød peberfrugt",
+        "amount": 2,
+        "unit": "stk"
+      },
+      {
+        "name": "Fløde",
+        "amount": 250,
+        "unit": "ml"
+      },
+      {
+        "name": "Ris",
+        "amount": 300,
+        "unit": "ml"
+      }
+    ]
   }
 ]
